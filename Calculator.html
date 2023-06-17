@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+</head>
+<style>
+body{
+      background-color: antiquewhite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 500px;
+      height: 500px;
+      background-color: #232629;
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    }
+.display{
+    min-height: 75px;
+    grid-column: span 5;
+    background-color:beige;
+    font-size: 75px;
+    border: 0px;
+    margin: 20px 0px 0px 0px;
+    padding-bottom: 10px;
+    text-align: right;
+
+    }
+button{font-size:60px;}
+.equal{grid-row: span 2;}
+/* .plus{grid-column: 4;} */
+.zero{grid-column: span 2;}
+</style>
+<script>
+    var firstTransacion = true;
+    var number = null;
+    var nextNumber = false;
+    var operation = "";
+    function handleClick(buttonPressed){
+        console.log("button clicked = "+buttonPressed);
+        var calc_display = document.getElementById("display");
+        if (buttonPressed == "C"){calc_display.textContent = "";}//Clear
+        else 
+        if (buttonPressed =>0 && buttonPressed <=9){calc_display.textContent += buttonPressed;}//Number
+        else
+        if (buttonPressed == "."){calc_display.textContent += ".";}//Dot
+        
+        // if (buttonPressed == "-"){
+        //     nextNumber = true; 
+            
+        //     if (!firstTransaction){number -= Number(calc_display.textContent);}
+        //     else if (firstTransaction){number = Number(calc_display.textContent);}
+
+        //     operation = '+'; 
+        //     calc_display.textContent = number;
+        //     }
+        
+        //     }
+        //     firstTransaction = false;
+        //     nextNumber = true; 
+        //     operation = '-'; 
+        //     calc_display.textContent = number;
+        }
+        
+        
+</script>
+<body>
+    <!-- 789/C
+         456*<
+         123-=
+         00.+= -->
+
+         <div class="container">
+            <!-- <div class="display">🤠</div> -->
+            
+                <p id="display" class="display">1234567890</p>
+                <button onclick="handleClick(7)">7</button>
+                <button onclick="handleClick(8)">8</button>
+                <button onclick="handleClick(9)">9</button>
+                <button onclick="handleClick('/')">/</button>
+                <button onclick="handleClick('C')">C</button>
+                <button onclick="handleClick(4)">4</button>
+                <button onclick="handleClick(5)">5</button>
+                <button onclick="handleClick(6)">6</button>
+                <button onclick="handleClick('X')">X</button>
+                <button onclick="handleClick('B')">B</button>
+                <button onclick="handleClick(1)">1</button>
+                <button onclick="handleClick(2)">2</button>
+                <button onclick="handleClick(3)">3</button>
+                <button onclick="handleClick('-')">-</button>
+                <button class="equal" onClick="handleClick('=')">=</button>
+                <button class="zero" onClick="handleClick(0)">0</button>
+                <button onclick="handleClick('.')">.</button>
+                <button onclick="handleClick('+')">+</button>
+                
+        </div>
+</body>
+</html>
