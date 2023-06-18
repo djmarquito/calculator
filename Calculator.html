@@ -46,15 +46,27 @@ button{font-size:60px;}
     var number = null;
     var nextNumber = false;
     var operation = "";
+    var dot = false;
     function handleClick(buttonPressed){
         console.log("button clicked = "+buttonPressed);
         var calc_display = document.getElementById("display");
-        if (buttonPressed == "C"){calc_display.textContent = "";}//Clear
-        else 
-        if (buttonPressed =>0 && buttonPressed <=9){calc_display.textContent += buttonPressed;}//Number
-        else
-        if (buttonPressed == "."){calc_display.textContent += ".";}//Dot
         
+        if (buttonPressed == "C"){calc_display.textContent = ""; dot = false;}//Clear
+
+        else if (buttonPressed != "." && buttonPressed != "B"){
+        if (buttonPressed =>0 && buttonPressed <=9){calc_display.textContent += buttonPressed;}//Number
+        }
+        
+        else if (dot == false && buttonPressed == "."){dot = true; calc_display.textContent += ".";console.log("dot = "+dot);}//Dot
+
+        else if(buttonPressed == "B"){
+            var str = calc_display.textContent;
+            str = str.slice(0, -1);
+            if (str == ""){dot = false;}
+            calc_display.textContent = str;
+        }
+        
+
         // if (buttonPressed == "-"){
         //     nextNumber = true; 
             
