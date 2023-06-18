@@ -44,28 +44,54 @@ button{font-size:60px;}
 <script>
     var firstTransacion = true;
     var number = null;
-    var nextNumber = false;
+    var nextNumber = false;//clears the display to enter the next number
     var operation = "";
     var dot = false;
+    
+    //currently working on the minus button
+
     function handleClick(buttonPressed){
         console.log("button clicked = "+buttonPressed);
         var calc_display = document.getElementById("display");
         
-        if (buttonPressed == "C"){calc_display.textContent = ""; dot = false;}//Clear
+        //Clear
+        if (buttonPressed == "C"){
+            calc_display.textContent = ""; 
+            dot = false;
+            number = null;
+            }
 
-        else if (buttonPressed != "." && buttonPressed != "B"){
-        if (buttonPressed =>0 && buttonPressed <=9){calc_display.textContent += buttonPressed;}//Number
-        }
+        //Number    
+        else if (buttonPressed != "." && buttonPressed != "B" && buttonPressed != "+"){
+        if (buttonPressed =>0 && buttonPressed <=9){
+            if (nextNumber){calc_display.textContent = ""; nextNumber = false;}
+            calc_display.textContent += buttonPressed;}
+            }
         
-        else if (dot == false && buttonPressed == "."){dot = true; calc_display.textContent += ".";console.log("dot = "+dot);}//Dot
+        //Dot
+        else if (dot == false && buttonPressed == "."){
+            if (nextNumber){calc_display.textContent = ""; nextNumber = false;}
+            dot = true; 
+            calc_display.textContent += ".";
+            console.log("dot = "+dot);
+            }
 
+        //Back
         else if(buttonPressed == "B"){
             var str = calc_display.textContent;
             str = str.slice(0, -1);
             if (str == ""){dot = false;}
             calc_display.textContent = str;
-        }
+            }
         
+        //Plus
+        else if (buttonPressed = "+"){
+            calc_display.textContent = Number(number) + Number(calc_display.textContent);//number + display
+            number = calc_display.textContent;//the number variable gets what is on the display
+            operation = "+";//addition operation
+            nextNumber = true;//if true, it clears when you start typing the next number
+            }
+
 
         // if (buttonPressed == "-"){
         //     nextNumber = true; 
