@@ -44,36 +44,53 @@ button{font-size:60px;}
 <script>
     var firstTransacion = true;
     var number = null;
-    var nextNumber = false;//clears the display to enter the next number
+    var nextNumber = false;//if true, it clears when you start typing the next number
     var operation = "";
     var dot = false;
+    var secondNumber = null;
     
-    //currently working on the minus button
+    //currently working on the plus button, when press plus again it don't add the last number
+    //+ variable to second number then when entering a number it goes to the first number
+    
+    //need to find what is the variable
+    //then change the value
 
     function handleClick(buttonPressed){
         console.log("button clicked = "+buttonPressed);
         var calc_display = document.getElementById("display");
+        
+    function showme(what){console.log(what);}
         
         //Clear
         if (buttonPressed == "C"){
             calc_display.textContent = ""; 
             dot = false;
             number = null;
+            secondNumber = null;
             }
 
         //Number    
-        else if (buttonPressed != "." && buttonPressed != "B" && buttonPressed != "+"){
-        if (buttonPressed =>0 && buttonPressed <=9){
-            if (nextNumber){calc_display.textContent = ""; nextNumber = false;}
-            calc_display.textContent += buttonPressed;}
+        else if (buttonPressed != "." && buttonPressed != "B" && buttonPressed != "+" && buttonPressed != "-"){
+            if (buttonPressed =>0 && buttonPressed <=9){
+                if (nextNumber){//if true, it clears when you start typing the next number
+                calc_display.textContent = ""; 
+                nextNumber = false; 
+                secondNNumber = number;
+                }
+            calc_display.textContent += buttonPressed;
+            secondNumber = calc_display.textContent;
             }
+        }
         
         //Dot
         else if (dot == false && buttonPressed == "."){
+            
+            //if true, it clears when you start typing the next number
             if (nextNumber){calc_display.textContent = ""; nextNumber = false;}
+            
             dot = true; 
             calc_display.textContent += ".";
-            console.log("dot = "+dot);
+            // console.log("dot = "+dot);
             }
 
         //Back
@@ -84,14 +101,27 @@ button{font-size:60px;}
             calc_display.textContent = str;
             }
         
-        //Plus
-        else if (buttonPressed = "+"){
-            calc_display.textContent = Number(number) + Number(calc_display.textContent);//number + display
-            number = calc_display.textContent;//the number variable gets what is on the display
+        //Plus new+second
+        else if (buttonPressed == "+"){
+            if (nextNumber == ""){//if true, it clears when you start typing the next number
+                secondNumber = Number(calc_display.textContent);}//so every + add same number
+            // secondNumber = Number(calc_display.textContent);
+            number = Number(number) + secondNumber;
+            console.log("number = "+number);
+            console.log("secondNumber = "+secondNumber);
+            calc_display.textContent = Number(number);
+            //number = calc_display.textContent;//the number variable gets what is on the display
             operation = "+";//addition operation
             nextNumber = true;//if true, it clears when you start typing the next number
             }
 
+        //Minus
+        else if (buttonPressed == "-"){
+            calc_display.textContent = Number(number) - Number(calc_display.textContent);//number - display
+            number = calc_display.textContent;//the number variable gets what is on the display
+            operation = "-";//addition operation
+            nextNumber = true;//if true, it clears when you start typing the next number
+            }    
 
         // if (buttonPressed == "-"){
         //     nextNumber = true; 
