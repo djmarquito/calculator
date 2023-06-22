@@ -59,9 +59,7 @@ button{font-size:60px;}
         console.log("button clicked = "+buttonPressed);
         var calc_display = document.getElementById("display");
         
-    function showme(what){console.log(what);}
-        
-        //Clear
+           //Clear
         if (buttonPressed == "C"){
             calc_display.textContent = ""; 
             dot = false;
@@ -70,7 +68,12 @@ button{font-size:60px;}
             }
 
         //Number    
-        else if (buttonPressed != "." && buttonPressed != "B" && buttonPressed != "+" && buttonPressed != "-"){
+        else if (buttonPressed != "." && 
+                buttonPressed != "B" && 
+                buttonPressed != "+" && 
+                buttonPressed != "-" &&
+                buttonPressed != "x" &&
+                buttonPressed != "/"){
             if (buttonPressed =>0 && buttonPressed <=9){
                 if (nextNumber){//if true, it clears when you start typing the next number
                 calc_display.textContent = ""; 
@@ -103,41 +106,33 @@ button{font-size:60px;}
         
         //Plus new+second
         else if (buttonPressed == "+"){
-            if (nextNumber == ""){//if true, it clears when you start typing the next number
+            if (!nextNumber){//if true, it clears when you start typing the next number
                 secondNumber = Number(calc_display.textContent);}//so every + add same number
-            // secondNumber = Number(calc_display.textContent);
+            
             number = Number(number) + secondNumber;
             console.log("number = "+number);
             console.log("secondNumber = "+secondNumber);
             calc_display.textContent = Number(number);
-            //number = calc_display.textContent;//the number variable gets what is on the display
+            
             operation = "+";//addition operation
             nextNumber = true;//if true, it clears when you start typing the next number
             }
 
         //Minus
         else if (buttonPressed == "-"){
-            calc_display.textContent = Number(number) - Number(calc_display.textContent);//number - display
-            number = calc_display.textContent;//the number variable gets what is on the display
-            operation = "-";//addition operation
-            nextNumber = true;//if true, it clears when you start typing the next number
-            }    
-
-        // if (buttonPressed == "-"){
-        //     nextNumber = true; 
+            if (!nextNumber){//if true, it clears when you start typing the next number
+                secondNumber = Number(calc_display.textContent);}//so every - substracts the same number
             
-        //     if (!firstTransaction){number -= Number(calc_display.textContent);}
-        //     else if (firstTransaction){number = Number(calc_display.textContent);}
-
-        //     operation = '+'; 
-        //     calc_display.textContent = number;
-        //     }
-        
-        //     }
-        //     firstTransaction = false;
-        //     nextNumber = true; 
-        //     operation = '-'; 
-        //     calc_display.textContent = number;
+            if (number != null){number = Number(number) - secondNumber;}
+            else if (number == null){number = secondNumber;}
+            console.log("number = "+number);
+            console.log("secondNumber = "+secondNumber);
+            calc_display.textContent = Number(number);
+            
+            
+            operation = "-";//substraction operation
+            nextNumber = true;//if true, it clears when you start typing the next number
+            }
         }
         
         
@@ -160,7 +155,7 @@ button{font-size:60px;}
                 <button onclick="handleClick(4)">4</button>
                 <button onclick="handleClick(5)">5</button>
                 <button onclick="handleClick(6)">6</button>
-                <button onclick="handleClick('X')">X</button>
+                <button onclick="handleClick('x')">X</button>
                 <button onclick="handleClick('B')">B</button>
                 <button onclick="handleClick(1)">1</button>
                 <button onclick="handleClick(2)">2</button>
