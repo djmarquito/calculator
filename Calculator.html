@@ -41,13 +41,13 @@ button{font-size:60px;}
 .zero{grid-column: span 2;}
 </style>
 <script>
-    var number = null;
-    var nextNumber = false;//if true, it clears when you start typing the next number
-    var operation = "";
-    var dot = false;
-    var secondNumber = null;
+    var number = null; // memory empty
+    var nextNumber = true;//if true, it clears when you start typing the next number
+    var operation = ""; // operartion memory empty
+    var dot = false; // not using the dot
+    var secondNumber = null; // the second number memory is empty too
     
-    //All the buttons are working
+    //get rid of the zero when you type the first number - done
 
     function handleClick(buttonPressed){
         console.log("button clicked = "+buttonPressed);
