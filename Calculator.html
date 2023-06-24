@@ -38,22 +38,16 @@ body{
     }
 button{font-size:60px;}
 .equal{grid-row: span 2;}
-/* .plus{grid-column: 4;} */
 .zero{grid-column: span 2;}
 </style>
 <script>
-    var firstTransacion = true;
     var number = null;
     var nextNumber = false;//if true, it clears when you start typing the next number
     var operation = "";
     var dot = false;
     var secondNumber = null;
     
-    //Currently working on:
-    //multiplication
-    //division
-    //equal button
-
+    //All the buttons are working
 
     function handleClick(buttonPressed){
         console.log("button clicked = "+buttonPressed);
@@ -73,7 +67,8 @@ button{font-size:60px;}
                 buttonPressed != "+" && 
                 buttonPressed != "-" &&
                 buttonPressed != "x" &&
-                buttonPressed != "/"){
+                buttonPressed != "/" &&
+                buttonPressed != "="){
             if (buttonPressed =>0 && buttonPressed <=9){
                 if (nextNumber){//if true, it clears when you start typing the next number
                 calc_display.textContent = ""; 
@@ -164,11 +159,23 @@ button{font-size:60px;}
             calc_display.textContent = Number(number);
             
             
-            operation = "-";//division
+            operation = "/";//division
             nextNumber = true;//if true, it clears when you start typing the next number
             }
 
-            else if (buttonPressed == "="){console.log("pressed equal button");}
+            else if (buttonPressed == "="){
+                console.log("pressed equal button");
+                
+                switch(operation){
+                    case "+": number += Number(secondNumber); break;
+                    case "-": number -= Number(secondNumber); break;
+                    case "x": number *= Number(secondNumber); break;
+                    case "/": number /= Number(secondNumber); break;
+                    default: console.log("what in the freak!");
+                }
+                calc_display.textContent = Number(number);
+                operation = "";//you can press equal just once
+            }
         }
         
         
