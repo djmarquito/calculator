@@ -7,23 +7,23 @@
 </head>
 <style>
 body{
-      background-color: antiquewhite;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      padding: 0;
+    background-color: antiquewhite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
     }
 
-    .container {
-      width: 500px;
-      height: 500px;
-      background-color: #232629;
-      display: grid;
-      gap: 20px;
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-      grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+.container {
+    width: 500px;
+    height: 500px;
+    background-color: #232629;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     }
 .display{
     min-height: 75px;
@@ -78,8 +78,6 @@ button{font-size:60px;}
             calc_display.textContent += buttonPressed;
             secondNumber = calc_display.textContent;
             }
-            console.log("number function says: number = "+number);
-            console.log("number function says: secondNumber = "+secondNumber);
         }
         
         //Dot
@@ -90,8 +88,7 @@ button{font-size:60px;}
             
             dot = true; 
             calc_display.textContent += ".";
-            // console.log("dot = "+dot);
-            }
+        }
 
         //Back
         else if(buttonPressed == "B"){
@@ -99,7 +96,7 @@ button{font-size:60px;}
             str = str.slice(0, -1);
             if (str == ""){dot = false;}
             calc_display.textContent = str;
-            }
+        }
         
         //Plus new+second
         else if (buttonPressed == "+"){
@@ -107,13 +104,11 @@ button{font-size:60px;}
                 secondNumber = Number(calc_display.textContent);}//so every + add same number
             
             number = Number(number) + secondNumber;
-            console.log("number = "+number);
-            console.log("secondNumber = "+secondNumber);
             calc_display.textContent = Number(number);
             
             operation = "+";//addition operation
             nextNumber = true;//if true, it clears when you start typing the next number
-            }
+        }
 
         //Minus
         else if (buttonPressed == "-"){
@@ -122,61 +117,51 @@ button{font-size:60px;}
             
             if (number != null){number = Number(number) - secondNumber;}
             else if (number == null){number = secondNumber;}
-            console.log("number = "+number);
-            console.log("secondNumber = "+secondNumber);
             calc_display.textContent = Number(number);
-            
-            
+                        
             operation = "-";//substraction operation
             nextNumber = true;//if true, it clears when you start typing the next number
-            }
+        }
 
             //Multiplication
         else if (buttonPressed == "x"){
             if (!nextNumber){//if true, it clears when you start typing the next number
-                secondNumber = Number(calc_display.textContent);}//so every + add same number
+                secondNumber = Number(calc_display.textContent);}//so every x multiply same number
             
-            if (number != null){number = Number(number) * secondNumber;
-            console.log("number = "+number);
-            console.log("secondNumber = "+secondNumber);
-            
-            }
+            if (number != null){number = Number(number) * secondNumber;}
             else if (number == null){number = secondNumber;}
+            
             calc_display.textContent = Number(number);
             operation = "x";//multiplication
             nextNumber = true;//if true, it clears when you start typing the next number
-            }
+        }
 
         //Division
         else if (buttonPressed == "/"){
             if (!nextNumber){//if true, it clears when you start typing the next number
-                secondNumber = Number(calc_display.textContent);}//so every - substracts the same number
+                secondNumber = Number(calc_display.textContent);}//so every / divides the same number
             
             if (number != null){number = Number(number) / secondNumber;}
             else if (number == null){number = secondNumber;}
-            console.log("number = "+number);
-            console.log("secondNumber = "+secondNumber);
             calc_display.textContent = Number(number);
-            
-            
+                        
             operation = "/";//division
             nextNumber = true;//if true, it clears when you start typing the next number
-            }
-
-            else if (buttonPressed == "="){
-                console.log("pressed equal button");
-                
-                switch(operation){
-                    case "+": number += Number(secondNumber); break;
-                    case "-": number -= Number(secondNumber); break;
-                    case "x": number *= Number(secondNumber); break;
-                    case "/": number /= Number(secondNumber); break;
-                    default: console.log("what in the freak!");
-                }
-                calc_display.textContent = Number(number);
-                operation = "";//you can press equal just once
-            }
         }
+
+        //Equal
+        else if (buttonPressed == "="){
+            switch(operation){
+                case "+": number += Number(secondNumber); break;
+                case "-": number -= Number(secondNumber); break;
+                case "x": number *= Number(secondNumber); break;
+                case "/": number /= Number(secondNumber); break;
+                default: console.log("what in the freak!");
+            }
+            calc_display.textContent = Number(number);
+            operation = "";//you can press equal just once
+        }
+    }
         
         
 </script>
@@ -187,9 +172,8 @@ button{font-size:60px;}
          00.+= -->
 
          <div class="container">
-            <!-- <div class="display">🤠</div> -->
-            
-                <p id="display" class="display">1234567890</p>
+                     
+                <p id="display" class="display">0</p>
                 <button onclick="handleClick(7)">7</button>
                 <button onclick="handleClick(8)">8</button>
                 <button onclick="handleClick(9)">9</button>
