@@ -9,8 +9,8 @@
 body{
     background-color: antiquewhite;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center;
+    align-items: center; */
     height: 100vh;
     margin: 0;
     padding: 0;
@@ -28,13 +28,14 @@ body{
 .display{
     min-height: 75px;
     grid-column: span 5;
-    background-color:beige;
+    background-color:#efefef;
     font-size: 75px;
     border: 0px;
     margin: 20px 0px 0px 0px;
     padding-bottom: 10px;
     text-align: right;
-
+    overflow: hidden;
+    text-overflow:ellipsis;
     }
 button{font-size:60px;}
 .equal{grid-row: span 2;}
