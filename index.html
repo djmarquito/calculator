@@ -42,24 +42,46 @@ button{font-size:60px;}
 .zero{grid-column: span 2;}
 </style>
 <script>
-    var number = null; // memory empty
+    var firstNumber = null; // the first number memory is empty
     var nextNumber = true;//if true, it clears when you start typing the next number
-    var operation = ""; // operartion memory empty
-    var dot = false; // not using the dot
+    var operation = null; // operation1 memory empty
     var secondNumber = null; // the second number memory is empty too
+    var result = null; // no result yet
+    var number1 = number2 = false; //is it populated?
+    var dot = false; //only one dot in the numbers
     
-    //get rid of the zero when you type the first number - done
+    
+    //Bugs:
+    // 9/9?
+    // needs some testing
+    function operate(operation){
+                    
+            switch(operation){
+                case "+": result = Number(firstNumber) + Number(secondNumber); break;
+                case "-": result = Number(firstNumber) - Number(secondNumber); break;
+                case "x": result = Number(firstNumber) * Number(secondNumber); break;
+                case "/": result = Number(firstNumber) / Number(secondNumber); break;
+                default: console.log("what in the freak!");
+            }
+            console.log(firstNumber + " " + operation + " " + secondNumber + " = " + result);
+        }
 
     function handleClick(buttonPressed){
-        console.log("button clicked = "+buttonPressed);
+        
+        
         var calc_display = document.getElementById("display");
+        
         
            //Clear
         if (buttonPressed == "C"){
             calc_display.textContent = ""; 
-            dot = false;
-            number = null;
+            firstNumber = null;
             secondNumber = null;
+            operation = null;
+            result = null;
+            number1 = false;
+            number2 = false;
+            var dot = false;
             }
 
         //Number    
@@ -71,97 +93,107 @@ button{font-size:60px;}
                 buttonPressed != "/" &&
                 buttonPressed != "="){
             if (buttonPressed =>0 && buttonPressed <=9){
-                if (nextNumber){//if true, it clears when you start typing the next number
+               
+            //clear the screen to type a new number
+            if (nextNumber){
                 calc_display.textContent = ""; 
-                nextNumber = false; 
-                secondNNumber = number;
-                }
+                nextNumber = false;
+            }
+            
+            //just populate the screen with numbers
             calc_display.textContent += buttonPressed;
-            secondNumber = calc_display.textContent;
+            if (!number1){firstNumber = calc_display.textContent;}
+            else if (!number2){secondNumber = calc_display.textContent;}
             }
         }
         
         //Dot
-        else if (dot == false && buttonPressed == "."){
-            
+        else if (buttonPressed == "."){
             //if true, it clears when you start typing the next number
             if (nextNumber){calc_display.textContent = ""; nextNumber = false;}
-            
-            dot = true; 
-            calc_display.textContent += ".";
+            if (!dot){dot = true; calc_display.textContent += ".";}
         }
 
         //Back
         else if(buttonPressed == "B"){
             var str = calc_display.textContent;
             str = str.slice(0, -1);
-            if (str == ""){dot = false;}
-            calc_display.textContent = str;
+            firstNumber = result = calc_display.textContent = Number(str);
+            //detect the dot:
+            // if no dot then dot = false;
+            // if dot at the end like this (5.) then dot = false and delete the dot;
         }
         
-        //Plus new+second
+        //Plus
         else if (buttonPressed == "+"){
-            if (!nextNumber){//if true, it clears when you start typing the next number
-                secondNumber = Number(calc_display.textContent);}//so every + add same number
-            
-            number = Number(number) + secondNumber;
-            calc_display.textContent = Number(number);
-            
-            operation = "+";//addition operation
-            nextNumber = true;//if true, it clears when you start typing the next number
+            nextNumber = true; //if true, it clears when you start typing the next number
+            if (firstNumber != null){ number1 = true;}
+            if (secondNumber != null){number2 = true;}
+            if (number1 && number2){
+            operate(operation);
+            calc_display.textContent = firstNumber = result;
+            secondNumber = null; number2 = false;}
+            operation = "+";
         }
 
         //Minus
         else if (buttonPressed == "-"){
-            if (!nextNumber){//if true, it clears when you start typing the next number
-                secondNumber = Number(calc_display.textContent);}//so every - substracts the same number
-            
-            if (number != null){number = Number(number) - secondNumber;}
-            else if (number == null){number = secondNumber;}
-            calc_display.textContent = Number(number);
-                        
-            operation = "-";//substraction operation
-            nextNumber = true;//if true, it clears when you start typing the next number
+            nextNumber = true; //if true, it clears when you start typing the next number
+            if (firstNumber != null){ number1 = true;}
+            if (secondNumber != null){number2 = true;}
+            if (number1 && number2){
+            operate(operation);
+            calc_display.textContent = firstNumber = result;
+            secondNumber = null; number2 = false;}
+            operation = "-";
         }
 
-            //Multiplication
+        //Multiplication
         else if (buttonPressed == "x"){
-            if (!nextNumber){//if true, it clears when you start typing the next number
-                secondNumber = Number(calc_display.textContent);}//so every x multiply same number
-            
-            if (number != null){number = Number(number) * secondNumber;}
-            else if (number == null){number = secondNumber;}
-            
-            calc_display.textContent = Number(number);
-            operation = "x";//multiplication
-            nextNumber = true;//if true, it clears when you start typing the next number
+            nextNumber = true; //if true, it clears when you start typing the next number
+            if (firstNumber != null){ number1 = true;}
+            if (secondNumber != null){number2 = true;}
+            if (number1 && number2){
+            operate(operation);
+            calc_display.textContent = firstNumber = result;
+            secondNumber = null; number2 = false;}
+            operation = "x";
         }
 
-        //Division
+        //Plus
         else if (buttonPressed == "/"){
-            if (!nextNumber){//if true, it clears when you start typing the next number
-                secondNumber = Number(calc_display.textContent);}//so every / divides the same number
-            
-            if (number != null){number = Number(number) / secondNumber;}
-            else if (number == null){number = secondNumber;}
-            calc_display.textContent = Number(number);
-                        
-            operation = "/";//division
-            nextNumber = true;//if true, it clears when you start typing the next number
+            nextNumber = true; //if true, it clears when you start typing the next number
+            if (firstNumber != null){ number1 = true;}
+            if (secondNumber != null){number2 = true;}
+            if (number1 && number2){
+            operate(operation);
+            calc_display.textContent = firstNumber = result;
+            secondNumber = null; number2 = false;}
+            operation = "/";
         }
 
-        //Equal
-        else if (buttonPressed == "="){
+         //Equal
+         else if (buttonPressed == "="){
+            
             switch(operation){
-                case "+": number += Number(secondNumber); break;
-                case "-": number -= Number(secondNumber); break;
-                case "x": number *= Number(secondNumber); break;
-                case "/": number /= Number(secondNumber); break;
+                case "+": result = Number(firstNumber) + Number(secondNumber); break;
+                case "-": result = Number(firstNumber) - Number(secondNumber); break;
+                case "x": result = Number(firstNumber) * Number(secondNumber); break;
+                case "/": result = Number(firstNumber) / Number(secondNumber); break;
                 default: console.log("what in the freak!");
             }
-            calc_display.textContent = Number(number);
-            operation = "";//you can press equal just once
+            console.log(firstNumber + " " + operation + " " + secondNumber + " = " + result);
+            firstNumber = calc_display.textContent = result;
+            secondNumber = null;
+            operation = null;//you can press equal just once
         }
+
+        console.log("button clicked: "+buttonPressed);
+        console.log("first number = "+Number(firstNumber));
+        console.log("second number = "+Number(secondNumber));
+        console.log("operation = "+operation);
+        console.log("result = "+Number(result));
+        console.log("______________________________________");
     }
         
         
